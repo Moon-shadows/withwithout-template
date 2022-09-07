@@ -1,48 +1,73 @@
+<?php
+// define variables and set to empty values
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+      $nameErr = "Only letters and white space allowed";
+    }
+  }
+  
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+    // check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErr = "Invalid email format";
+    }
+  }
+    
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inlämn.uppg. V:35</title>
+    <style>.error {color: #FF0000;}
+    </style>
 </head>
 <body>
+    <h2>Contact us</h2>
+    <p><span class="error">* required field</span></p>
+    <form id="form" name="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 
-    <h2>Kontakta oss</h2>
+        <label for="Name">Name:</label><br>
+        <input type="text" size="50" name="name" id="name" value="<?php echo $name;?>">
+        <span class="error">* <?php echo $nameErr;?></span><br><br>
 
-
-    <form id="form" name="form" method="post" action="index.php">
-
-        <label for="fname">Förnamn *</label><br>
-        <input type="text" size="50" name="name" id="name" /> <br><br>
-            
-        <label for="lname">Efternamn *</label><br>
-        <input type="text" size="50" name="name" id="name" /> <br><br>
-            
-        <label for="fname">E-postadress *</label><br>
-        <input type="text" size="50" name="email" id="email" /> <br><br>
-
-        <label for="Meddelande">Meddelande *</label><br>
-        <textarea name="meddelande" id="meddelande" cols="47" rows="5"></textarea> <br><br>
-            
-        <input type="submit" name="skicka" id="skicka" value="Skicka meddelandet" />
-        </form>
+        <label for="E-post">E-mail:</label><br>
+        <input type="text" size="50" name="email" id="email" value="<?php echo $email;?>">
+        <span class="error">* <?php echo $emailErr;?></span><br><br>
+        
+        <label for="Comment">Comment:</label><br>
+        <textarea name="comment" rows="5" cols="47" ><?php echo $comment;?></textarea><br><br>
+        <input type="submit" name="skicka" value="Submit">
+    </form>
 </body>
 </html>
 
-<?php
-   
-    if(empty($_POST['name']) && empty($_POST['email'])){
-        # If the fields are empty, display a message to the user
-        echo " <br/> Please fill in the fields";
-    # Process the form data if the input fields are not empty
-    }else{
-        $name= $_POST['name'];
-        $email= $_POST['email'];
-        echo ('Your Name is:     '. $name. '<br/>');
-        echo ('Your Email is:'   . $email. '<br/>');
-    }
-?>
 
 
 
