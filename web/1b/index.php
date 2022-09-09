@@ -38,34 +38,29 @@ function test_input($data) {
   return $data;
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inlämn.uppg. V:35</title>
-    <style>.error {color: #FF0000;}
-    </style>
-</head>
-<body>
-    <h2>Contact us</h2>
-    <p><span class="error">* required field</span></p>
-    <form id="form" name="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 
-        <label for="Name">Name:</label><br>
-        <input type="text" size="50" name="name" id="name" value="<?php echo $name;?>">
-        <span class="error">* <?php echo $nameErr;?></span><br><br>
+<html>
+  <head><title>Uppgift 2b</title>
+    <style>.error {color: #FF0000;}</style>
+  </head>
+  <body>
+      <h2>Contact Us</h2>
+      <p><span class="error">* required field</span></p>
+      <form id="form" name="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 
-        <label for="E-post">E-mail:</label><br>
-        <input type="text" size="50" name="email" id="email" value="<?php echo $email;?>">
-        <span class="error">* <?php echo $emailErr;?></span><br><br>
-        
-        <label for="Comment">Comment:</label><br>
-        <textarea name="comment" rows="5" cols="47" ><?php echo $comment;?></textarea><br><br>
-        <input type="submit" name="skicka" value="Submit">
-    </form>
-</body>
+          <label for="Name">Name:</label><br>
+          <input type="text" size="50" name="name" id="name" value="<?php echo $name;?>">
+          <span class="error">* <?php echo $nameErr;?></span><br><br>
+
+          <label for="E-post">E-mail:</label><br>
+          <input type="text" size="50" name="email" id="email" value="<?php echo $email;?>">
+          <span class="error">* <?php echo $emailErr;?></span><br><br>
+          
+          <label for="Comment">Comment:</label><br>
+          <textarea name="comment" rows="5" cols="47" ><?php echo $comment;?></textarea><br><br>
+          <input type="submit" name="skicka" value="Submit">
+      </form>
+  </body>
 </html>
 
 
